@@ -1,0 +1,75 @@
+COMP9319 Assignment 2: Data Compression and Web Search
+Your task in this assignment is to create a simple search program that implements BWT backward search, which can efficiently search a BWT encoded record file. The original file (before BWT) format is:
+
+[<offset1>]<text1>[<offset2>]<text2>[<offset3>]<text3>... ...
+
+where <offset1>, <offset2>, <offset3>, etc. are integer values that are used as unique identifiers;
+and <text1>, <text2>, <text3>, etc. are text values, which include any visible ASCII alphabets (i.e., any character with ASCII value from 32 to 126), tab (ASCII 9) and newline (ASCII 10 and 13). For simplicity, there will be no open or close square bracket in the text values.
+
+Your Java program, called bwtsearch, accepts the filename of a BWT encoded file; and one to three quoted query strings as commandline input arguments. Using the given query strings, it will perform backward search on the given BWT encoded file and output all the records that contain ALL input query strings (i.e., a boolean AND search), sorted according to their unique identifiers to the standard output. To make the assignment easier, we assume that the search is case sensitive. Your output does not need to include the identifiers but just the text values, one line (ending with a '\n') for each match. No record will be output more than once, i.e., if there are multiple matches in one record, that record will only be output once.
+Example
+Suppose the original file before BWT is:
+
+[3]Computers in industry[25]Data compression[33]Integration[40]Alice in wonderland
+
+(Note that you will not be given the original file. You will only be provided with the BWT encoded file.)
+Given the command:
+
+%wagner> java -Xmx128m bwtsearch sample.bwt "in"
+
+The output should be:
+
+Computers in industry
+Alice in wonderland
+
+Given the command:
+
+%wagner> java -Xmx128m bwtsearch sample.bwt "land" "in" "won"
+
+The output should be:
+
+Alice in wonderland
+
+You can find some bwt files (e.g., tiny.bwt) by logging into CSE machines and going to folder ~cs9319/project
+
+We will use the commands below to compile your solution. Please ensure that the code you submit can be compiled. Solutions that have compilation errors will receive zero points for the entire assignment.
+
+    javac -d classes *.java
+
+Your solution will be compiled and run on a typical CSE machine e.g. wagner. Your solution should not write out any external files. Any solution that writes out external files will receive zero points for the entire assignment.
+Performance
+Your solution will be marked based on space and runtime performance. Your soluton will not be tested against any BWT encoded files that are larger than 8MB.
+
+The auto marking script will run your solution with a heap size of 128MB. i.e.
+
+    java -Xmx128m bwtsearch ...
+
+Any solution that runs for more than 90 seconds on a machine with similar specification as wagner for a query will be killed, and will receive zero points for that query test.
+Documentation
+You will be marked on your documentation of your classes, methods and steps in your solution. Documentation is to be provided in JavaDoc form. Your source code will also be inspected and marked based on readability and ease of understanding.
+Assumptions/clarifications/hints
+
+    To avoid long output time, none of the testcases for marking will result in outputting more than 100 records.
+    The input filename is a path to the given BWT encoded file, relative to the working directory.
+    Marks will be deducted for output of any extra text, other than the required, correct answers. This extra information includes (but not limited to) debugging messages, line numbers and so on.
+    All records (sorted according to its identifiers) should be output when an empty string (i.e., "") is provided as the query string. 
+
+Marking
+This assignment is worth 100 points. Below is an indicative marking scheme:
+Component	Points
+Auto marking 	90
+Documentation 	10
+Bonus
+Bonus marks (up to 10 points) will be awarded for the solution that can scale to 200MB of BWT encoded files using 128MB heap memory. The maximum runtime for these queries will be set at 180 seconds before your running solution to be killed.
+Note: regardless of the bonus marks you receive in this assignment, the maximum final mark for the subject is capped at 100.
+Submission
+Deadline: Thursday 26th April 23:59. Late submission will attract 10% penalty for the first day and 30% penalty for each subsequent day. Use the give command below to submit the assignment:
+
+    give cs9319 a2 *.java
+
+Plagiarism
+The work you submit must be your own work. Submission of work partially or completely derived from any other person or jointly written with any other person is not permitted. The penalties for such an offence may include negative marks, automatic failure of the course and possibly other academic discipline. Assignment submissions will be examined both automatically and manually for such submissions.
+
+Relevant scholarship authorities will be informed if students holding scholarships are involved in an incident of plagiarism or other misconduct.
+
+Do not provide or show your assignment work to any other person - apart from the teaching staff of this subject. If you knowingly provide or show your assignment work to another person for any reason, and work derived from it is submitted you may be penalized, even if the work was submitted without your knowledge or consent. This may apply even if your work is submitted by a third party unknown to you.
